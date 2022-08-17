@@ -4,7 +4,7 @@ import { validateInsertClientSchema } from "../../middlewares/clientsMiddlewares
 
 const clientsRouter = Router();
 
-clientsRouter.post("/clients", validateInsertClientSchema, clientsController.insertClient);
+clientsRouter.post("/clients", validateInsertClientSchema ,clientsController.insertClient);
 
 export default clientsRouter;
 
