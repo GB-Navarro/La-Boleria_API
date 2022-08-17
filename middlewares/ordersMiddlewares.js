@@ -1,4 +1,5 @@
 import ordersSchemas from "../schemas/ordersSchema.js";
+import ordersRepository from "../repositories/ordersRepository.js";
 
 export function validateInsertOrderSchema(req, res, next){
     const data = req.body;
@@ -6,7 +7,6 @@ export function validateInsertOrderSchema(req, res, next){
     if(validateSchema.error === undefined){
         next();
     }else{
-        const { phone } = data;
         const validateErrorMessage = validateSchema.error.details[0].message;
         const clientIdRequiredError = '"clientId" is required';
         const clientIdEmptyError = '"clientId" is not allowed to be empty';
@@ -37,5 +37,42 @@ export function validateInsertOrderSchema(req, res, next){
         else if(validateErrorMessage === totalPriceRequiredError || validateErrorMessage === totalPriceEmptyError || validateErrorMessage === totalPriceTypeError || validateErrorMessage === totalPriceMinValueError){
             res.sendStatus(400);
         }
+    }
+}
+
+export async function checksCakeAndClientExistence(req,res,next){
+    const {clientId, cakeId} = req.body;
+    const clientExists = await checkClientIdExistence(clientId);
+    const cakeExists = await checkCakeIdExistence(cakeId);
+    if(clientExists && cakeExists){
+        next();
+    }else{
+        res.sendStatus(404);
+    }
+}
+
+async function checkClientIdExistence(clientId){
+    let clientExists;
+    const result = await ordersRepository.checkClientIdExistence(clientId);
+    console.log("ClientIdExistenceResult", result);
+    if(result.rowCount === 1){
+        clientExists = true;
+        return clientExists;
+    }else{
+        clientExists = false;
+        return clientExists;
+    }
+}
+
+async function checkCakeIdExistence(cakeId){
+    let cakeExists;
+    const result = await ordersRepository.checkCakeIdExistence(cakeId);
+    console.log("CakeIdExistenceResult", result);
+    if(result.rowCount === 1){
+        cakeExists = true;
+        return cakeExists;
+    }else{
+        cakeExists = false;
+        return cakeExists;
     }
 }
