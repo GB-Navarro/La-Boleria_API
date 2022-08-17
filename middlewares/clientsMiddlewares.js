@@ -26,7 +26,6 @@ export function validateInsertClientSchema(req, res, next){
         }else if(validateErrorMessage === phoneRequiredError || validateErrorMessage === phoneEmptyError || validateErrorMessage === phoneMinLengthError || validateErrorMessage === phoneMaxLengthError){
             res.sendStatus(400);
         }else if(validateErrorMessage === phoneRegexError){
-            console.log("b");
             res.sendStatus(400);
         }
     }
