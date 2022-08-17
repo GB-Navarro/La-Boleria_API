@@ -5,6 +5,7 @@ import { validateInsertOrderSchema, checksCakeAndClientExistence, validateDataTy
 const ordersRouter = Router();
 
 ordersRouter.post("/order", validateInsertOrderSchema, validateDataType ,checksCakeAndClientExistence, ordersController.insertOrder);
+ordersRouter.get("/orders", ordersController.getOrders)
 
 export default ordersRouter;
 

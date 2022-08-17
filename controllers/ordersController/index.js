@@ -15,8 +15,13 @@ async function insertOrder(req,res){
     }
 }
 
+async function getOrders(req,res){
+    res.send("Hello World!");
+}
+
 const ordersController = {
-    insertOrder
+    insertOrder,
+    getOrders
 }
 
 export default ordersController;
