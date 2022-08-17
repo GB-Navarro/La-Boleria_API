@@ -37,8 +37,11 @@ export async function verifyCakeNameValidity(req,res,next){
     const {name} = req.body;
     try{
         const result = await cakesRepository.searchCakeName(name);
-        console.log(result);
-        next();
+        if(result.rowCount > 0){
+            res.sendStatus(409);
+        }else{
+            next();
+        }
     }catch(error){
         console.log(error);
         res.sendStatus(500);
