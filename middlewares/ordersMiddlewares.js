@@ -63,7 +63,6 @@ export async function checksCakeAndClientExistence(req,res,next){
 async function checkClientIdExistence(clientId){
     let clientExists;
     const result = await ordersRepository.checkClientIdExistence(clientId);
-    console.log("ClientIdExistenceResult", result);
     if(result.rowCount === 1){
         clientExists = true;
         return clientExists;
@@ -76,7 +75,6 @@ async function checkClientIdExistence(clientId){
 async function checkCakeIdExistence(cakeId){
     let cakeExists;
     const result = await ordersRepository.checkCakeIdExistence(cakeId);
-    console.log("CakeIdExistenceResult", result);
     if(result.rowCount === 1){
         cakeExists = true;
         return cakeExists;
@@ -85,3 +83,27 @@ async function checkCakeIdExistence(cakeId){
         return cakeExists;
     }
 }
+
+export async function validateDataType(req,res,next){
+    const {clientId, cakeId, quantity, totalPrice} = req.body;
+    const isClientIdValid = isNumber(clientId);
+    const isCakeIdValid = isNumber(cakeId);
+    const isQuantityValid = isNumber(quantity);
+    const isTotalPriceValid = isNumber(totalPrice);
+
+    if(isClientIdValid && isCakeIdValid && isQuantityValid && isTotalPriceValid){
+        next();
+    }else{
+        res.sendStatus(400);
+    }
+
+}
+
+function isNumber(value){
+    if(typeof(value) === 'number'){
+        return true;
+    }else{
+        return false;
+    }
+}
+
