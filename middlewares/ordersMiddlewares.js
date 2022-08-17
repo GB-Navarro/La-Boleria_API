@@ -107,3 +107,12 @@ function isNumber(value){
     }
 }
 
+export async function checkOrderIdExistence(req,res,next){
+    const { id } = req.params;
+    const result = await ordersRepository.checkOrderIdExistence(id);
+    if(result.rowCount === 0){
+        res.sendStatus(404);
+    }else{
+        next();
+    }
+}

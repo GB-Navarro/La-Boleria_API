@@ -41,8 +41,10 @@ async function getOrders(req,res){
 
 async function getOrderById(req,res){
     const { id } = req.params;
-    console.log(id);
-    res.send("Hello World!");
+    const result = await ordersRepository.getOrderById(id);
+    const order = result.rows;
+    const response = ordersControllerFunctions.formatResponse(order);
+    res.status(200).send(response[0]);
 }
 
 const ordersController = {
