@@ -5,13 +5,18 @@ dotenv.config();
 
 const { Pool } = pg;
 
-const databaseConfig = {
-    connectionString: process.env.CONNECTIONSTRING,
-    ssl:{
-        rejectUnauthorized: false
-    }
-}
+const user = process.env.DBUSER;
+const password = process.env.PASSWORD;
+const host = process.env.HOST;
+const port = process.env.DBPORT;
+const database = process.env.DATABASE;
 
-const connection = new Pool(databaseConfig);
+const connection = new Pool({
+    user,
+    password,
+    host,
+    port,
+    database
+  });
 
 export default connection;

@@ -1,4 +1,5 @@
 import cakesSchemas from "../schemas/cakesSchemas.js";
+import cakesRepository from "../repositories/cakesRepository.js";
 
 export function validateInsertCakeSchema(req, res, next){
     const data = req.body;
@@ -29,5 +30,17 @@ export function validateInsertCakeSchema(req, res, next){
         }else if(validateErrorMessage === imageRequiredError || validateErrorMessage === imageEmptyError || validateErrorMessage === imageInvalidUrlError){
             res.sendStatus(422);
         }
+    }
+}
+
+export async function verifyCakeNameValidity(req,res,next){
+    const {name} = req.body;
+    try{
+        const result = await cakesRepository.searchCakeName(name);
+        console.log(result);
+        next();
+    }catch(error){
+        console.log(error);
+        res.sendStatus(500);
     }
 }

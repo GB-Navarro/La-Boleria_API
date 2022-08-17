@@ -1,7 +1,5 @@
 import Joi from "joi";
 
-//ver se o price pode ser menor que 0 ou não
-
 const insertCakeSchema = Joi.object({
     name: Joi.string().min(2).required(),
     price: Joi.number().greater(0).required(),
