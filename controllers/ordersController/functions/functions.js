@@ -1,3 +1,10 @@
+function formatResponse(orders){
+    const response = orders.map((order) => {
+        return formatOrders(order);
+    })
+    return response;
+}
+
 function formatOrders(data){
     const { orderId, createdAt, quantity, totalPrice, cakeId, cakeName, cakePrice, cakeDescription, cakeImage, clientId, clientName, clientAdress, clientPhone } = data;
     const cake = formatCakeData(cakeId, cakeName, cakePrice, cakeDescription, cakeImage);
@@ -35,7 +42,7 @@ function formatClientData(clientId, clientName, clientAdress, clientPhone){
 }
 
 const ordersControllerFunctions = {
-    formatOrders
+    formatResponse
 }
 
 export default ordersControllerFunctions

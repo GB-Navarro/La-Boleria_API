@@ -17,13 +17,27 @@ async function insertOrder(req,res){
 }
 
 async function getOrders(req,res){
-    console.log("query", req.querys);
-    const result = await ordersRepository.getOrders();
-    const orders = result.rows;
-    const response = orders.map((order) => {
-        return ordersControllerFunctions.formatOrders(order);
-    })
-    res.send(response);
+    const { date } = req.query
+    if(date === undefined){
+        const result = await ordersRepository.getOrders();
+        const orders = result.rows;
+        const response = ordersControllerFunctions.formatResponse(orders);
+        if(response.length === 0){
+            res.status(404).send([]);
+        }else{
+            res.status(200).send(response);
+        }
+    }else{
+        const result = await ordersRepository.getOrdersByDate(date);
+        const orders = result.rows;
+        const response = ordersControllerFunctions.formatResponse(orders);
+        if(response.length === 0){
+            res.status(404).send([]);
+        }else{
+            res.status(200).send(response);
+        }
+    }
+    
 }
 
 const ordersController = {
