@@ -10,9 +10,15 @@ async function checkCakeIdExistence(cakeId){
     return result;
 }
 
+async function insertOrder(clientId, cakeId, quantity, totalPrice){
+    const result = await connection.query('INSERT INTO orders ("clientId", "cakeId", quantity, "totalPrice") VALUES ($1,$2,$3,$4)',[clientId, cakeId, quantity, totalPrice]);
+    return result;
+}
+
 const ordersRepository = {
     checkClientIdExistence,
-    checkCakeIdExistence
+    checkCakeIdExistence,
+    insertOrder
 }
 
 export default ordersRepository;
