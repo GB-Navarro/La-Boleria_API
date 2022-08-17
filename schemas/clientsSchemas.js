@@ -3,7 +3,7 @@ import Joi from "joi";
 const insertClientSchema = Joi.object({
     name: Joi.string().required(),
     adress: Joi.string().required(),
-    phone: Joi.string().min(10).max(11).required()
+    phone: Joi.string().min(10).max(11).pattern(/[0-9]{10,11}$/).required()
 })
 
 const clientsSchemas = {
