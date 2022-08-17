@@ -36,13 +36,19 @@ async function getOrders(req,res){
         }else{
             res.status(200).send(response);
         }
-    }
-    
+    }   
+}
+
+async function getOrderById(req,res){
+    const { id } = req.params;
+    console.log(id);
+    res.send("Hello World!");
 }
 
 const ordersController = {
     insertOrder,
-    getOrders
+    getOrders,
+    getOrderById
 }
 
 export default ordersController;
