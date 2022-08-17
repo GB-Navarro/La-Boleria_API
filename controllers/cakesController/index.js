@@ -1,14 +1,6 @@
 import cakesRepository from "./../../repositories/cakesRepository.js";
 
 async function insertCake(req,res){
-    /*
-        {
-		    "name": "Bolo de pote",
-		    "price": 13.00,
-            "image":"encurtador.com.br/iDIX0",
-		    "description": "Bolo de chocolate com recheio de leite ninho"
-        }
-    */
     const {name,price,image,description} = req.body;
     try{
         const result = await cakesRepository.insertCake(name,price,image,description);
