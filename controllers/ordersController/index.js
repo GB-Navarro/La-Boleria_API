@@ -1,4 +1,5 @@
 import ordersRepository from "./../../repositories/ordersRepository.js";
+import ordersControllerFunctions from "./functions/functions.js";
 
 async function insertOrder(req,res){
     const {clientId,cakeId,quantity,totalPrice} = req.body;
@@ -16,7 +17,13 @@ async function insertOrder(req,res){
 }
 
 async function getOrders(req,res){
-    res.send("Hello World!");
+    console.log("query", req.querys);
+    const result = await ordersRepository.getOrders();
+    const orders = result.rows;
+    const response = orders.map((order) => {
+        return ordersControllerFunctions.formatOrders(order);
+    })
+    res.send(response);
 }
 
 const ordersController = {
