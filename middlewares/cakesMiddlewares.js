@@ -8,26 +8,36 @@ export function validateInsertCakeSchema(req, res, next){
     if(validateSchema.error === undefined){
         next();
     }else{
-        const validateErrorMessage = validateSchema.error.details[0].message;
-        const nameRequiredError = '"name" is required'
+
+        const error = validateSchema.error.details[0].message;
+        console.log(error);
+
+        const nameRequiredError = '"name" is required';
         const nameEmptyError = '"name" is not allowed to be empty';
+        const nameTypeError = '"name" must be a string';
         const nameLengthError = '"name" length must be at least 2 characters long';
-        const priceRequiredError = '"price" is required'
+        
+
+        const priceRequiredError = '"price" is required';
         const priceEmptyError = '"price" is not allowed to be empty';
         const priceValueError = '"price" must be greater than 0';
-        const descriptionRequiredError = '"description" is required'
-        const descriptionTypeError = '"description" must be a string';
-        const imageRequiredError = '"image" is required'
-        const imageEmptyError = '"image" is not allowed to be empty';
-        const imageInvalidUrlError = '"image" must be a valid uri'
 
-        if(validateErrorMessage === nameRequiredError || validateErrorMessage === nameEmptyError || validateErrorMessage === nameLengthError){
+        const descriptionRequiredError = '"description" is required';
+        const descriptionTypeError = '"description" must be a string';
+
+        const imageRequiredError = '"image" is required';
+        const imageEmptyError = '"image" is not allowed to be empty';
+        const imageTypeError = '"image" must be a string';
+        const imageInvalidUrlError = '"image" must be a valid uri';
+        
+
+        if(error === nameRequiredError || error === nameEmptyError || error === nameTypeError || error === nameLengthError){
             res.sendStatus(400);
-        }else if(validateErrorMessage === priceRequiredError || validateErrorMessage === priceEmptyError || validateErrorMessage === priceValueError){
+        }else if(error === priceRequiredError || error === priceEmptyError || error === priceValueError){
             res.sendStatus(400);
-        }else if(validateErrorMessage === descriptionRequiredError || validateErrorMessage === descriptionTypeError){
+        }else if(error === descriptionRequiredError || error === descriptionTypeError){
             res.sendStatus(400);
-        }else if(validateErrorMessage === imageRequiredError || validateErrorMessage === imageEmptyError || validateErrorMessage === imageInvalidUrlError){
+        }else if(error === imageRequiredError || error === imageEmptyError || error === imageTypeError || error === imageInvalidUrlError){
             res.sendStatus(422);
         }
     }
@@ -45,5 +55,24 @@ export async function verifyCakeNameValidity(req,res,next){
     }catch(error){
         console.log(error);
         res.sendStatus(500);
+    }
+}
+
+export async function validateDataType(req,res,next){
+    const {price} = req.body;
+    const isPriceValid = isNumber(price);
+    if(isPriceValid){
+        next();
+    }else{
+        console.log("price não é um número");
+        res.sendStatus(400);
+    }
+}
+
+function isNumber(value){
+    if(typeof(value) === 'number'){
+        return true;
+    }else{
+        return false;
     }
 }
