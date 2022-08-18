@@ -11,12 +11,13 @@ const host = process.env.HOST;
 const port = process.env.DBPORT;
 const database = process.env.DATABASE;
 
-const connection = new Pool({
-    user,
-    password,
-    host,
-    port,
-    database
-  });
+const databaseConfig = {
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+      rejectUnauthorized: false
+  }
+}
+
+const connection = new Pool(databaseConfig);
 
 export default connection;
