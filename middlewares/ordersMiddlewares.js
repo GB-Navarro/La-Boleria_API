@@ -116,3 +116,13 @@ export async function checkOrderIdExistence(req,res,next){
         next();
     }
 }
+
+export async function validateClientId(req,res,next){
+    const { id } = req.params;
+    const clientIdExists = await checkClientIdExistence(id);
+    if(clientIdExists){
+        next();
+    }else{
+        res.sendStatus(404);
+    }
+}
