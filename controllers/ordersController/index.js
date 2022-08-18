@@ -3,6 +3,7 @@ import ordersControllerFunctions from "./functions/functions.js";
 
 async function insertOrder(req,res){
     const {clientId,cakeId,quantity,totalPrice} = req.body;
+
     try{
         const result = await ordersRepository.insertOrder(clientId, cakeId, quantity, totalPrice);
         if(result.rowCount === 1){
