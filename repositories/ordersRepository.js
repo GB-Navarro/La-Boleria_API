@@ -1,4 +1,3 @@
-import { connect } from "http2";
 import connection from "./../dbStrategy/postgres.js";
 
 async function checkClientIdExistence(clientId){
@@ -37,6 +36,11 @@ async function getOrderById(id){
     return result;
 }
 
+async function getOrdersByClientId(id){
+    const result = await connection.query('SELECT orders.id as "orderId", orders.quantity, orders."createdAt", orders."totalPrice", cakes.name as "cakeName" FROM orders JOIN cakes ON orders."cakeId" = cakes.id WHERE orders."clientId" = $1',[id]);
+    return result;
+}
+
 const ordersRepository = {
     checkClientIdExistence,
     checkCakeIdExistence,
@@ -44,7 +48,8 @@ const ordersRepository = {
     getOrders,
     getOrdersByDate,
     checkOrderIdExistence,
-    getOrderById
+    getOrderById,
+    getOrdersByClientId
 }
 
 export default ordersRepository;

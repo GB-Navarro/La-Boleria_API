@@ -47,10 +47,22 @@ async function getOrderById(req,res){
     res.status(200).send(response[0]);
 }
 
+async function getOrdersByClientId(req,res){
+    const { id } = req.params;
+    const result = await ordersRepository.getOrdersByClientId(id);
+    const orders = result.rows;
+    if(orders.length === 0){
+        res.status(404).send([]);
+    }else{
+        res.status(200).send(orders);
+    }
+}
+
 const ordersController = {
     insertOrder,
     getOrders,
-    getOrderById
+    getOrderById,
+    getOrdersByClientId
 }
 
 export default ordersController;
