@@ -9,7 +9,6 @@ export function validateInsertClientSchema(req, res, next){
         const { phone } = data;
 
         const error = validateSchema.error.details[0].message;
-
         const nameRequiredError = '"name" is required';
         const nameEmptyError = '"name" is not allowed to be empty';
         const nameTypeError = '"name" must be a string';
