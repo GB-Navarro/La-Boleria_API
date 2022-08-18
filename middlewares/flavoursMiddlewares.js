@@ -1,4 +1,5 @@
 import { insertFlavourSchema } from "../schemas/flavoursSchemas.js";
+import flavoursRepository from "../repositories/flavoursRepository.js";
 
 export function validateInsertFlavourData(req,res,next){
     const data = req.body;
@@ -20,4 +21,21 @@ export function validateInsertFlavourData(req,res,next){
         }
         
     }
+}
+
+export async function checksIfFlavourExists(req,res,next){
+    const { name } = req.body;
+    
+    try{
+        const result = await flavoursRepository.checksIfFlavourExists(name);
+        if(result.rowCount != 0){
+            res.sendStatus(409);
+        }else{
+            next();
+        }
+    }catch(error){
+        console.log(error);
+        res.sendStatus(500);
+    }
+    
 }
