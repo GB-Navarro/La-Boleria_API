@@ -8,9 +8,9 @@ const { Pool } = pg;
 const databaseConfig = {
   connectionString: process.env.LOCALDATABASE_URL,
   ssl: {
-      rejectUnauthorized: false
-  }
-}
+    rejectUnauthorized: false,
+  },
+};
 
 const connection = new Pool(databaseConfig);
 
