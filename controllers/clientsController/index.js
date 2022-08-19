@@ -1,9 +1,9 @@
 import clientsRepository from "./../../repositories/clientsRepository.js";
 
 async function insertClient(req,res){
-    const {name, adress, phone} = req.body;
+    const {name, address, phone} = req.body;
     try{
-        const result = await clientsRepository.insertClient(name, adress, phone);
+        const result = await clientsRepository.insertClient(name, address, phone);
         if(result.rowCount === 1){
             res.sendStatus(201);
         }else{
