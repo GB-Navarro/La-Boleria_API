@@ -1,9 +1,9 @@
 import cakesRepository from "./../../repositories/cakesRepository.js";
 
 async function insertCake(req,res){
-    const {name,price,image,description} = req.body;
+    const {name,price,image,description,flavourId} = req.body;
     try{
-        const result = await cakesRepository.insertCake(name,price,image,description);
+        const result = await cakesRepository.insertCake(name,price,image,description,flavourId);
         if(result.rowCount === 1){
             res.sendStatus(201);
         }else{
