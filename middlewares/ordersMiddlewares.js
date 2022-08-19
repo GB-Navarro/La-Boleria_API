@@ -126,3 +126,18 @@ export async function validateClientId(req,res,next){
         res.sendStatus(404);
     }
 }
+
+export async function validateOrderId(req,res,next){
+    const { id } = req.params;
+    if(id > 0){
+        //id deve ser maior que zero
+        if(id % 1 === 0){
+            //id deve ser um número inteiro
+            next();
+        }else{
+            res.sendStatus(400);
+        }
+    }else{
+        res.sendStatus(400);
+    }
+}
