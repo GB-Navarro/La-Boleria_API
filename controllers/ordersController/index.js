@@ -59,11 +59,16 @@ async function getOrdersByClientId(req,res){
     }
 }
 
+async function changeDeliveryStatus(req,res){
+    res.send("Hello World!");
+}
+
 const ordersController = {
     insertOrder,
     getOrders,
     getOrderById,
-    getOrdersByClientId
+    getOrdersByClientId,
+    changeDeliveryStatus
 }
 
 export default ordersController;

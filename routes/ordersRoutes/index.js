@@ -8,6 +8,7 @@ ordersRouter.post("/order", validateInsertOrderSchema, validateDataType ,checksC
 ordersRouter.get("/orders", ordersController.getOrders);
 ordersRouter.get("/orders/:id", checkOrderIdExistence , ordersController.getOrderById);
 ordersRouter.get("/clients/:id/orders", validateClientId ,ordersController.getOrdersByClientId);
+ordersRouter.patch("/order/:id", ordersController.changeDeliveryStatus);
 
 export default ordersRouter;
 
