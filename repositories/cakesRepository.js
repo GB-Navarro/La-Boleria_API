@@ -10,9 +10,15 @@ async function insertCake(name,price,image,description){
     return result;
 }
 
+async function checksIfFlavourIdExists(id){
+    const result = await connection.query('SELECT * FROM flavours WHERE id = $1',[id]);
+    return result;
+}
+
 const cakesRepository = {
     searchCakeName,
-    insertCake
+    insertCake,
+    checksIfFlavourIdExists
 }
 
 export default cakesRepository;

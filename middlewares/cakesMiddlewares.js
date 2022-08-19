@@ -82,3 +82,18 @@ function isNumber(value){
         return false;
     }
 }
+
+export async function checksIfFlavourIdExists(req,res,next){
+    const { flavourId } = req.body;
+    try{
+        const result = await cakesRepository.checksIfFlavourIdExists(flavourId);
+        if(result.rowCount === 1){
+            next();
+        }else{
+            res.sendStatus(404);
+        }
+    }catch(error){
+        console.log(error);
+        res.sendStatus(500);
+    }
+}

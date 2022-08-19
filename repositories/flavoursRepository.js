@@ -10,7 +10,6 @@ async function insertFlavour(name){
     return result;
 }
 
-
 const flavoursRepository = {
     checksIfFlavourExists,
     insertFlavour
