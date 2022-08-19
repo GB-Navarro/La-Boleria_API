@@ -10,7 +10,6 @@ export function validateInsertCakeSchema(req, res, next){
     }else{
 
         const error = validateSchema.error.details[0].message;
-        console.log(error);
 
         const nameRequiredError = '"name" is required';
         const nameEmptyError = '"name" is not allowed to be empty';
@@ -30,6 +29,10 @@ export function validateInsertCakeSchema(req, res, next){
         const imageTypeError = '"image" must be a string';
         const imageInvalidUrlError = '"image" must be a valid uri';
         
+        const flavourIdRequiredError = '"flavourId" is required';
+        const flavourIdEmptyError = '"flavourId" is not allowed to be empty';
+        const flavourIdTypeError = '"flavourId" must be a number';
+        const flavourIdIntegerError = '"flavourId" must be an integer';
 
         if(error === nameRequiredError || error === nameEmptyError || error === nameTypeError || error === nameLengthError){
             res.sendStatus(400);
@@ -39,6 +42,8 @@ export function validateInsertCakeSchema(req, res, next){
             res.sendStatus(400);
         }else if(error === imageRequiredError || error === imageEmptyError || error === imageTypeError || error === imageInvalidUrlError){
             res.sendStatus(422);
+        }else if(error === flavourIdRequiredError || error === flavourIdEmptyError || error === flavourIdTypeError || error === flavourIdIntegerError){
+            res.sendStatus(400);
         }
     }
 }
