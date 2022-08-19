@@ -16,12 +16,12 @@ async function insertOrder(clientId, cakeId, quantity, totalPrice){
 }
 
 async function getOrders(){
-    const result = await connection.query('SELECT orders.id as "orderId", "createdAt", quantity, "totalPrice", "isDelivered", cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", clients.id as "clientId", clients.name as "clientName", clients.adress as "clientAdress", clients.phone as "clientPhone", flavours.name as flavour FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON cakes."flavourId" = flavours.id');
+    const result = await connection.query('SELECT orders.id as "orderId", "createdAt", quantity, "totalPrice", "isDelivered", cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone", flavours.name as flavour FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON cakes."flavourId" = flavours.id');
     return result;
 }
 
 async function getOrdersByDate(date){
-    const result = await connection.query('SELECT orders.id as "orderId", "createdAt", quantity, "totalPrice", "isDelivered", cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", clients.id as "clientId", clients.name as "clientName", clients.adress as "clientAdress", clients.phone as "clientPhone", flavours.name as flavour FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON cakes."flavourId" = flavours.id WHERE CAST(orders."createdAt" AS VARCHAR) LIKE $1',['%' + date + '%']);
+    const result = await connection.query('SELECT orders.id as "orderId", "createdAt", quantity, "totalPrice", "isDelivered", cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone", flavours.name as flavour FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON cakes."flavourId" = flavours.id WHERE CAST(orders."createdAt" AS VARCHAR) LIKE $1',['%' + date + '%']);
     return result
 }
 
@@ -31,7 +31,7 @@ async function checkOrderIdExistence(id){
 }
 
 async function getOrderById(id){
-    const result = await connection.query('SELECT orders.id as "orderId", "createdAt", quantity, "totalPrice", "isDelivered", cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", clients.id as "clientId", clients.name as "clientName", clients.adress as "clientAdress", clients.phone as "clientPhone", flavours.name as flavour FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON flavours.id = cakes."flavourId" WHERE orders.id = $1',[id])
+    const result = await connection.query('SELECT orders.id as "orderId", "createdAt", quantity, "totalPrice", "isDelivered", cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", clients.id as "clientId", clients.name as "clientName", clients.address as "clientAddress", clients.phone as "clientPhone", flavours.name as flavour FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON flavours.id = cakes."flavourId" WHERE orders.id = $1',[id])
     return result;
 }
 

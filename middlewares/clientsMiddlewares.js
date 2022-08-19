@@ -7,15 +7,16 @@ export function validateInsertClientSchema(req, res, next){
         next();
     }else{
         const { phone } = data;
-
+        
         const error = validateSchema.error.details[0].message;
+        console.log("error", error);
         const nameRequiredError = '"name" is required';
         const nameEmptyError = '"name" is not allowed to be empty';
         const nameTypeError = '"name" must be a string';
 
-        const adressRequiredError = '"adress" is required';
-        const adressEmptyError = '"adress" is not allowed to be empty';
-        const adressTypeError = '"adress" must be a string';
+        const addressRequiredError = '"address" is required';
+        const addressEmptyError = '"address" is not allowed to be empty';
+        const addressTypeError = '"address" must be a string';
 
         const phoneRequiredError = '"phone" is required';
         const phoneEmptyError = '"phone" is not allowed to be empty';
@@ -26,7 +27,7 @@ export function validateInsertClientSchema(req, res, next){
         
         if(error === nameRequiredError || error === nameEmptyError || nameTypeError){
             res.sendStatus(400);
-        }else if(error === adressRequiredError || error === adressEmptyError || error === adressTypeError){
+        }else if(error === addressRequiredError || error === addressEmptyError || error === addressTypeError){
             res.sendStatus(400);
         }else if(error === phoneRequiredError || error === phoneEmptyError || error === phoneTypeError || error === phoneMinLengthError || error === phoneMaxLengthError){
             res.sendStatus(400);

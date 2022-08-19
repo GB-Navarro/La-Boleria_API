@@ -6,9 +6,9 @@ function formatResponse(orders){
 }
 
 function formatOrders(data){
-    const { orderId, createdAt, quantity, totalPrice, cakeId, cakeName, cakePrice, cakeDescription, cakeImage, clientId, clientName, clientAdress, clientPhone, flavour, isDelivered } = data;
+    const { orderId, createdAt, quantity, totalPrice, cakeId, cakeName, cakePrice, cakeDescription, cakeImage, clientId, clientName, clientAddress, clientPhone, flavour, isDelivered } = data;
     const cake = formatCakeData(cakeId, cakeName, cakePrice, cakeDescription, cakeImage, flavour);
-    const client = formatClientData(clientId, clientName, clientAdress, clientPhone);
+    const client = formatClientData(clientId, clientName, clientAddress, clientPhone);
     const orders = {
         client,
         cake,
@@ -33,11 +33,11 @@ function formatCakeData(cakeId, cakeName, cakePrice, cakeDescription, cakeImage,
     return cake;
 }
 
-function formatClientData(clientId, clientName, clientAdress, clientPhone){
+function formatClientData(clientId, clientName, clientAddress, clientPhone){
     const client = {
         id: clientId,
         name: clientName,
-        adress: clientAdress,
+        address: clientAddress,
         phone: clientPhone
     }
     return client;
