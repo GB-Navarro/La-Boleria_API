@@ -5,8 +5,8 @@ async function searchCakeName(name){
     return result;
 }
 
-async function insertCake(name,price,image,description){
-    const result = await connection.query('INSERT INTO cakes (name,price,image,description) VALUES ($1,$2,$3,$4)',[name,price,image,description]);
+async function insertCake(name,price,image,description,flavourId){
+    const result = await connection.query('INSERT INTO cakes (name,price,image,description,"flavourId") VALUES ($1,$2,$3,$4,$5)',[name,price,image,description,flavourId]);
     return result;
 }
 
