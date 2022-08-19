@@ -64,12 +64,13 @@ export async function verifyCakeNameValidity(req,res,next){
 }
 
 export async function validateDataType(req,res,next){
-    const {price} = req.body;
+    const {price, flavourId} = req.body;
     const isPriceValid = isNumber(price);
-    if(isPriceValid){
+    const isFlavourIdValid = isNumber(flavourId);
+    if(isPriceValid && isFlavourIdValid){
         next();
     }else{
-        console.log("price não é um número");
+        console.log("Os campos price e flavourId devem ser compostos por números");
         res.sendStatus(400);
     }
 }
