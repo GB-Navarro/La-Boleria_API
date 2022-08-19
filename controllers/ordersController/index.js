@@ -60,7 +60,18 @@ async function getOrdersByClientId(req,res){
 }
 
 async function changeDeliveryStatus(req,res){
-    res.send("Hello World!");
+    const { id } = req.params;
+    try{
+        const result = await ordersRepository.changeDeliveryStatus(id);
+        if(result.rowCount != 0){
+            res.sendStatus(204);
+        }else{
+            res.sendStatus(500);
+        }
+    }catch(error){
+        console.log(error);
+        res.sendStatus(500);
+    }
 }
 
 const ordersController = {

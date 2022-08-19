@@ -141,3 +141,19 @@ export async function validateOrderId(req,res,next){
         res.sendStatus(400);
     }
 }
+
+export async function checkOrderIdDeliveryStatus(req,res,next){
+    const { id } = req.params;
+    try{
+        const result = await ordersRepository.checkOrderIdDeliveryStatus(id);
+        const { isDelivered } = result.rows[0];
+        if(!(isDelivered)){
+            next();
+        }else{
+            res.sendStatus(400);
+        }
+    }catch(error){
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
