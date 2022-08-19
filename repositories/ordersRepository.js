@@ -32,13 +32,21 @@ async function checkOrderIdExistence(id){
 
 async function getOrderById(id){
     const result = await connection.query('SELECT orders.id as "orderId", "createdAt", quantity, "totalPrice", cakes.id as "cakeId", cakes.name as "cakeName", cakes.price as "cakePrice", cakes.description as "cakeDescription", cakes.image as "cakeImage", clients.id as "clientId", clients.name as "clientName", clients.adress as "clientAdress", clients.phone as "clientPhone", flavours.name as flavour FROM orders JOIN cakes ON cakes.id = orders."cakeId" JOIN clients ON clients.id = orders."clientId" JOIN flavours ON flavours.id = cakes."flavourId" WHERE orders.id = $1',[id])
-    
     return result;
 }
 
 async function getOrdersByClientId(id){
     const result = await connection.query('SELECT orders.id as "orderId", orders.quantity, orders."createdAt", orders."totalPrice", cakes.name as "cakeName", flavours.name as flavour FROM orders JOIN cakes ON orders."cakeId" = cakes.id JOIN flavours ON flavours.id = cakes."flavourId" WHERE orders."clientId" = $1',[id]);
-    //
+    return result;
+}
+
+async function changeDeliveryStatus(id){
+    const result = await connection.query('UPDATE orders SET "isDelivered" = true WHERE id = $1',[id]);
+    return result;
+}
+
+async function checkOrderIdDeliveryStatus(id){
+    const result = await connection.query('SELECT orders."isDelivered" FROM orders WHERE id = $1',[id])
     return result;
 }
 
@@ -50,7 +58,9 @@ const ordersRepository = {
     getOrdersByDate,
     checkOrderIdExistence,
     getOrderById,
-    getOrdersByClientId
+    getOrdersByClientId,
+    changeDeliveryStatus,
+    checkOrderIdDeliveryStatus
 }
 
 export default ordersRepository;
